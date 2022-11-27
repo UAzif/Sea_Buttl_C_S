@@ -1,3 +1,4 @@
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
@@ -24,6 +25,8 @@ class MyServer implements Runnable {
     public static ArrayList<String> players = new ArrayList<>();
     int player1;
     int player2;
+    public ArrayList<Scanner> scans= new ArrayList<>();
+    public ArrayList<PrintWriter> writer= new ArrayList<>();
 
     public MyServer(Socket input) {
         this.input = input;
@@ -60,12 +63,16 @@ class MyServer implements Runnable {
 
             playersArr.add(mass);
             if (playersArr.size()==2) {
-                new Game(players, playersArr);
+                new Game(players, playersArr, player.socket);
                 players.remove(1);
                 players.remove(0);
+                playersArr.remove(1);
                 playersArr.remove(0);
             }
-            System.out.println(read.nextLine());
+            writer.println("ooo");//5. отправляет
+            writer.flush();
+
+            //    System.out.println(read.nextLine());
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -73,3 +80,4 @@ class MyServer implements Runnable {
         }
     }
 }
+
