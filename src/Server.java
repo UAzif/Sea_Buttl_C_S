@@ -25,8 +25,8 @@ class MyServer implements Runnable {
     public static ArrayList<String> players = new ArrayList<>();
     int player1;
     int player2;
-    public ArrayList<Scanner> scans= new ArrayList<>();
-    public ArrayList<PrintWriter> writer= new ArrayList<>();
+//    public ArrayList<Scanner> scans= new ArrayList<>();
+//    public ArrayList<PrintWriter> writer= new ArrayList<>();
 
     public MyServer(Socket input) {
         this.input = input;
@@ -42,13 +42,13 @@ class MyServer implements Runnable {
             System.out.println("Подключены " + players.size() + " игроков ");
             int myNumb = players.size();//дает номер по порядку ==длине массива
 //2.передает номер игрока
-            if (myNumb == 1) {
-                writer.println(name + " вы зарегистрированы ваш № " + myNumb + "Подождите");
-                writer.flush();
-            } else {
-                writer.println(name + " вы зарегистрированы ваш № " + myNumb);
-                writer.flush();
-            }
+            //         if (myNumb == 1) {
+            writer.println(name + " вы зарегистрированы ваш № " + myNumb);
+            writer.flush();
+//            } else {
+//                writer.println(name + " вы зарегистрированы ваш № " + myNumb+"\nВведите числа" );
+//                writer.flush();
+//            }
 //3. передает текст
             writer.println("Введите числа");
 
@@ -61,18 +61,45 @@ class MyServer implements Runnable {
                 mass[x] = 1;
             }
 
+            System.out.println("массив " + name);
+            for (int i = 0; i < 10; i++) {
+                System.out.print(mass[i] + " ");
+            }
+            System.out.println();
             playersArr.add(mass);
+
+//            System.out.println("Массивы  игроков");
+//            for (int i = 0; i < playersArr.size(); i++) {
+//                System.out.println("массив " + i + "-го игрока");
+//                System.out.println(Arrays.toString(playersArr.get(i)));
+//            }
+//            System.out.println();
+//            System.out.println("Список игроков");
+//            for (int i = 0; i < players.size(); i++) {
+//                System.out.println(players.get(i));//+" размер списка"+players.size());
+//            }
+//            System.out.println("И их массивы");
+//            for (int i = 0; i < playersArr.size(); i++) {
+//                System.out.println("массив " + name + "-го игрока");
+//                System.out.println(Arrays.toString(playersArr.get(i)));
+//            }
+
+            //  playersArr.add(mass);
+            System.out.println(" размер "+playersArr.size());
+
             if (playersArr.size()==2) {
-                new Game(players, playersArr, player.socket);
-                players.remove(1);
+                new Game(players, playersArr);
                 players.remove(0);
-                playersArr.remove(1);
+                players.remove(0);
+                playersArr.remove(0);
                 playersArr.remove(0);
             }
             writer.println("ooo");//5. отправляет
             writer.flush();
 
-            //    System.out.println(read.nextLine());
+            System.out.println("размер теперь  "+playersArr.size());
+
+            System.out.println(read.nextLine());
 
         } catch (IOException e) {
             e.printStackTrace();
