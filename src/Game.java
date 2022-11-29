@@ -31,7 +31,7 @@ public class Game {
         player1.writer.println("Введите число ");
         player1.writer.flush();
 
-        int y = player1.read.nextInt();
+        int y = player1.scan.nextInt();
         player1.writer.println("Веден ");
         player1.writer.flush();
 
