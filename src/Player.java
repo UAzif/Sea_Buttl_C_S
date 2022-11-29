@@ -12,17 +12,18 @@ public class Player {
     PrintWriter writer;
     Scanner read;
     Scanner scan;
+    int[] arr;
 
-
-    public Player(String name, Socket socket, PrintWriter writer, Scanner read, Scanner scan) {
+    public Player(String name, Socket socket, PrintWriter writer, Scanner read, Scanner scan, int [] arr) {
         this.name = name;
         this.socket = socket;
         this.writer = writer;
         this.read = read;
         this.scan = scan;
+        this.arr=arr;
     }
 
-    public Player(Socket socket, PrintWriter writer, Scanner read, Scanner scan) {
+    public Player(Socket socket, PrintWriter writer, Scanner read, Scanner scan, int [] arr) {
         this.socket = socket;
         this.writer = writer;
         this.read = read;
@@ -30,29 +31,48 @@ public class Player {
     }
 
     public static void main(String[] args) throws IOException {
-        Socket socket= new Socket("127.0.0.1", 8200);
+        Socket socket = new Socket("127.0.0.1", 8300);
         PrintWriter writer = new PrintWriter(socket.getOutputStream());
         Scanner read = new Scanner(socket.getInputStream());
         Scanner scan = new Scanner(System.in);
-        Player player = new Player(socket,writer,read,scan);
+        int [] arr = new int[10];
+        Player player = new Player(socket, writer, read, scan,arr);
         System.out.println("Ваше имя: ");
         String name = player.scan.nextLine();// считывает с консоли
         player.writer.println(name); //1.отправляет серверу
         player.writer.flush();
 //2. считывает и выводит в консоле
-        System.out.println(player.read.nextLine());
-//3. считывает текст и выводит в консоль
+        //   System.out.println(player.read.nextLine());
         System.out.println(player.read.nextLine());
 
 
         for (int i = 0; i < 4; i++) {
             int x = player.scan.nextInt();//читает с консоли число
-            player.writer.println(x);//4. отправляет серверу
-            player.writer.flush();
-            System.out.println(" Вы ввели "+(i+1)+" число оно = " + player.read.nextLine());//выводит в консоль
+            if ((x>=0)&&(x<10)) {
+                player.writer.println(x);//4. отправляет серверу
+                player.writer.flush();
+                System.out.println(" Вы ввели " + (i + 1) + " число оно = " + player.read.nextLine());//выводит в консоль
+            }else {
+                i--;
+                System.out.println("Не правильно!!! Повторите ввод");
+            }
         }
-        System.out.println(player.read.nextLine());//5. принимает
+//3. считывает текст и выводит в консоль
         System.out.println(player.read.nextLine());
         System.out.println(player.read.nextLine());
+        System.out.println(player.read.nextLine());
+        System.out.println(player.read.nextLine());
+        System.out.println(player.read.nextLine());
+        System.out.println(player.read.nextLine());
+
+//        for (int i = 0; i < 4; i++) {
+//            int x = player.scan.nextInt();//читает с консоли число
+//           player.writer.println(x);//4. отправляет серверу
+//           player.writer.flush();
+//            System.out.println(" Вы ввели "+(i+1)+" число оно = " + player.read.nextLine());//выводит в консоль
+//        }
+//        System.out.println(player.read.nextLine());//5. принимает
+//        System.out.println(player.read.nextLine());
+//        System.out.println(player.read.nextLine());
     }
 }

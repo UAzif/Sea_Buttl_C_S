@@ -1,50 +1,47 @@
 
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
+
 public class Game {
-    int[] arOfFirstPlayer;
-    int[] arOfsecondPlayer;
+    Socket socket = new Socket("127.0.0.1", 8300);
+    PrintWriter writer = new PrintWriter(socket.getOutputStream());
+    Scanner read = new Scanner(socket.getInputStream());
+    Scanner scan = new Scanner(System.in);
+    int[] arOfPlayer1 = new int[10];
+    int[] arOfPlayer2 = new int[10];
     public ArrayList<Player> playersList = new ArrayList<>();
 
-    Game(ArrayList<String> players, ArrayList<int[]> playersArr) throws IOException {
-        Socket socket = new Socket("127.0.0.1", 8200);
-        Player firstPlayer = new Player(players.get(0),
-                socket,
-                new PrintWriter(socket.getOutputStream()),
-                new Scanner(socket.getInputStream()),
-                new Scanner(System.in));
+    Game(Player player1, Player player2) throws IOException {
+        Socket socket = new Socket("127.0.0.1", 8300);
 
-        Player secondPlayer = new Player(players.get(1),
-                socket,
-                new PrintWriter(socket.getOutputStream()),
-                new Scanner(socket.getInputStream()),
-                new Scanner(System.in));
-        playersList.add(firstPlayer);
-        playersList.add(secondPlayer);
+        player1.writer.println(player1.name + " Начинаем игру");
+        player1.writer.flush();
+        player2.writer.println(player2.name + "  Начинаем игру");
+        player2.writer.flush();
 
-        arOfFirstPlayer = playersArr.get(0);
-        arOfsecondPlayer = playersArr.get(1);
+        //   int a = (int) (Math.random() * 2 + 4) - 3;
 
-        System.out.println("Массивы  игроков");
-        for (int i = 0; i < playersArr.size(); i++) {
-            System.out.println("массив " + (i + 1) + "-го игрока");
-            System.out.println(Arrays.toString(playersArr.get(i)));
-        }
-        System.out.println();
+        player1.writer.println("Первый ход за вами ");
+        player1.writer.flush();
+        player1.writer.println("Введите число ");
+        player1.writer.flush();
 
-        System.out.println("Начинаем игру");
-        System.out.println("Играют " + firstPlayer.name + " и " + secondPlayer.name);
-        System.out.println("ororor");
-        firstPlayer.writer.println("jjj");
-        firstPlayer.writer.flush();
-        firstPlayer.read.nextLine();
+        int y = player1.read.nextInt();
+        player1.writer.println("Веден ");
+        player1.writer.flush();
+
 
     }
+
+
+
+
+
 
     public boolean end(int[] arr) {
         int summ = 0;
