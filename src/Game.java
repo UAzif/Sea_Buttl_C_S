@@ -1,50 +1,45 @@
-
-
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.net.Socket;
-import java.util.ArrayList;
-import java.util.Scanner;
-
 
 public class Game {
-    Socket socket = new Socket("127.0.0.1", 8300);
-    PrintWriter writer = new PrintWriter(socket.getOutputStream());
-    Scanner read = new Scanner(socket.getInputStream());
-    Scanner scan = new Scanner(System.in);
-    int[] arOfPlayer1 = new int[10];
-    int[] arOfPlayer2 = new int[10];
-    public ArrayList<Player> playersList = new ArrayList<>();
-
     Game(Player player1, Player player2) throws IOException {
-        Socket socket = new Socket("127.0.0.1", 8300);
 
         player1.writer.println(player1.name + " Начинаем игру");
-        player1.writer.flush();
+        player1.writer.flush();//->4
         player2.writer.println(player2.name + "  Начинаем игру");
-        player2.writer.flush();
+        player2.writer.flush();//->4
 
-        //   int a = (int) (Math.random() * 2 + 4) - 3;
+        int a = (int) (Math.random() * 2 + 4) - 3;
+        int y;
+        if (a == 1) {
+            player1.writer.println("Первый ход за вами. Введите число");
+            player1.writer.flush();//->5
 
-        player2.writer.println("Первый ход за вами ");
-        player2.writer.flush();
-        player2.writer.println("Введите число ");
-        player2.writer.flush();
+            player2.writer.println("Первый ход за ним. Ждем результат ");
+            player2.writer.flush();//->5}
+            y = player1.read.nextInt();//==>6
+            player2.writer.println("Первый игрок ввел число ");// + y);
+            player2.writer.flush();
+            player1.writer.println("Первый игрок ввел число ");// + y);
+            player1.writer.flush();
+        }
+        else {
+            player2.writer.println("Первый ход за вами. Введите число");
+            player2.writer.flush();//->5
 
-        System.out.println("Хочу принять y");
-        int y = player2.scan.nextInt();
-        System.out.println(y);
-
-
-        player2.writer.println("Веден ");
-        player2.writer.flush();
-
+            player1.writer.println("Первый ход за ним. Ждем результат ");
+            player1.writer.flush();//->5
+            y = player2.read.nextInt();//==>6
+            player2.writer.println("Первый игрок ввел число ");// + y);
+            player2.writer.flush();
+            player1.writer.println("Первый игрок ввел число ");// + y);
+            player1.writer.flush();
+        }
+//        player2.writer.println("Первый игрок ввел число ");// + y);
+//        player2.writer.flush();
+//        player1.writer.println("Первый игрок ввел число ");// + y);
+//        player1.writer.flush();
 
     }
-
-
-
-
 
 
     public boolean end(int[] arr) {
@@ -60,6 +55,13 @@ public class Game {
             arr[x] = 0;
             return "Попал";
         } else return "Не попал";
+    }
+
+    public boolean bulCheck(int[] arr, int x) {
+        if (arr[x] == 1) {
+            arr[x] = 0;
+            return true;
+        } else return false;
     }
 }
 

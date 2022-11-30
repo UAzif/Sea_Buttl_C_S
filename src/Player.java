@@ -1,5 +1,3 @@
-
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
@@ -41,12 +39,10 @@ public class Player {
         String name = player.scan.nextLine();// считывает с консоли
         player.writer.println(name); //1.отправляет серверу
         player.writer.flush();
-//2. считывает и выводит в консоле
-        //   System.out.println(player.read.nextLine());
-        System.out.println(player.read.nextLine());
 
+        System.out.println(player.read.nextLine());//2 получает
 
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 1; i++) {
             int x = player.scan.nextInt();//читает с консоли число
             if ((x>=0)&&(x<10)) {
                 player.writer.println(x);//4. отправляет серверу
@@ -57,22 +53,20 @@ public class Player {
                 System.out.println("Не правильно!!! Повторите ввод");
             }
         }
-//3. считывает текст и выводит в консоль
-        System.out.println(player.read.nextLine());
-        System.out.println(player.read.nextLine());
-        System.out.println(player.read.nextLine());
-        System.out.println(player.read.nextLine());
-        System.out.println(player.read.nextLine());
-        System.out.println(player.read.nextLine());
 
-//        for (int i = 0; i < 4; i++) {
-//            int x = player.scan.nextInt();//читает с консоли число
-//           player.writer.println(x);//4. отправляет серверу
-//           player.writer.flush();
-//            System.out.println(" Вы ввели "+(i+1)+" число оно = " + player.read.nextLine());//выводит в консоль
-//        }
-//        System.out.println(player.read.nextLine());//5. принимает
-//        System.out.println(player.read.nextLine());
-//        System.out.println(player.read.nextLine());
+        System.out.println("3 "+player.read.nextLine());//==3 от сервера
+        System.out.println("4 "+player.read.nextLine());//==4 от игры
+
+        System.out.println("5 "+player.read.nextLine());//==5
+
+        int x= player.scan.nextInt();//считывает число
+        player.writer.println(x);
+        player.writer.flush();//отправляет ->6
+
+        System.out.println("6 "+player.read.nextLine());
+        System.out.println("7 "+player.read.nextLine());
+        System.out.println("8 "+player.read.nextLine());
+        System.out.println("9 "+player.read.nextLine());
+
     }
 }
