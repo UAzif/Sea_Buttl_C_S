@@ -26,14 +26,18 @@ public class Game {
 
         //   int a = (int) (Math.random() * 2 + 4) - 3;
 
-        player1.writer.println("Первый ход за вами ");
-        player1.writer.flush();
-        player1.writer.println("Введите число ");
-        player1.writer.flush();
+        player2.writer.println("Первый ход за вами ");
+        player2.writer.flush();
+        player2.writer.println("Введите число ");
+        player2.writer.flush();
 
-        int y = player1.scan.nextInt();
-        player1.writer.println("Веден ");
-        player1.writer.flush();
+        System.out.println("Хочу принять y");
+        int y = player2.scan.nextInt();
+        System.out.println(y);
+
+
+        player2.writer.println("Веден ");
+        player2.writer.flush();
 
 
     }

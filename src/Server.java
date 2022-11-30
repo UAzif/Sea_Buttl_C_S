@@ -21,6 +21,7 @@ public class Server {
 class MyServer implements Runnable {
     Socket input;
     public static ArrayList<Player> playersList = new ArrayList<>();
+
     public MyServer(Socket input) {
         this.input = input;
     }
@@ -31,7 +32,7 @@ class MyServer implements Runnable {
             Scanner read = new Scanner(input.getInputStream());
             PrintWriter writer = new PrintWriter(input.getOutputStream(), true);
             String name = read.nextLine(); //1.считывает переданное имя(name)
-
+            Scanner scan = new Scanner(System.in);
             writer.println("Введите числа");
             int[] mass = new int[10];
             for (int i = 0; i < 4; i++) {
@@ -41,9 +42,7 @@ class MyServer implements Runnable {
                 mass[x] = 1;
             }
 
-            Player player = new Player(name,
-                    input, new PrintWriter(input.getOutputStream()),
-                    new Scanner(input.getInputStream()), new Scanner(System.in), mass);
+            Player player = new Player(name, input, writer,read,scan, mass);
             playersList.add(player);
 
             System.out.println("Подключены " + playersList.size() + " игроков ");
@@ -65,9 +64,9 @@ class MyServer implements Runnable {
                 playersList.remove(1);
                 playersList.remove(0);
                 System.out.println("размер " + playersList.size());
-                System.out.println("Передаю игре "+temp.get(0).name+" "+temp.get(1).name);
+                System.out.println("Передаю игре " + temp.get(0).name + " " + temp.get(1).name);
                 new Game(temp.get(0), temp.get(1));
-                System.out.println("Передал игре "+temp.get(0).name+" "+temp.get(1).name);
+                System.out.println("Передал игре " + temp.get(0).name + " " + temp.get(1).name);
             }
 
 
