@@ -12,16 +12,16 @@ public class Player {
     Scanner scan;
     int[] arr;
 
-    public Player(String name, Socket socket, PrintWriter writer, Scanner read, Scanner scan, int [] arr) {
+    public Player(String name, Socket socket, PrintWriter writer, Scanner read, Scanner scan, int[] arr) {
         this.name = name;
         this.socket = socket;
         this.writer = writer;
         this.read = read;
         this.scan = scan;
-        this.arr=arr;
+        this.arr = arr;
     }
 
-    public Player(Socket socket, PrintWriter writer, Scanner read, Scanner scan, int [] arr) {
+    public Player(Socket socket, PrintWriter writer, Scanner read, Scanner scan, int[] arr) {
         this.socket = socket;
         this.writer = writer;
         this.read = read;
@@ -33,8 +33,8 @@ public class Player {
         PrintWriter writer = new PrintWriter(socket.getOutputStream());
         Scanner read = new Scanner(socket.getInputStream());
         Scanner scan = new Scanner(System.in);
-        int [] arr = new int[10];
-        Player player = new Player(socket, writer, read, scan,arr);
+        int[] arr = new int[10];
+        Player player = new Player(socket, writer, read, scan, arr);
         System.out.println("Ваше имя: ");
         String name = player.scan.nextLine();// считывает с консоли
         player.writer.println(name); //1.отправляет серверу
@@ -44,29 +44,31 @@ public class Player {
 
         for (int i = 0; i < 1; i++) {
             int x = player.scan.nextInt();//читает с консоли число
-            if ((x>=0)&&(x<10)) {
+            if ((x >= 0) && (x < 10)) {
                 player.writer.println(x);//4. отправляет серверу
                 player.writer.flush();
-                System.out.println(" Вы ввели " + (i + 1) + " число оно = " + player.read.nextLine());//выводит в консоль
-            }else {
+                //   System.out.println(" Вы ввели " + (i + 1) + " число оно = " + player.read.nextLine());//выводит в консоль
+            } else {
                 i--;
                 System.out.println("Не правильно!!! Повторите ввод");
             }
         }
 
-        System.out.println("3 "+player.read.nextLine());//==3 от сервера
-        System.out.println("4 "+player.read.nextLine());//==4 от игры
+        System.out.println("3 " + player.read.nextLine());//==3 от сервера о регистрации
+        System.out.println("4 " + player.read.nextLine());//==4 от игры
+        System.out.println("5 " + player.read.nextLine()); // о первом ходе
+        for (int i = 0; i < 2; i++) {
+            int z = player.scan.nextInt();
+            player.writer.println(z);
+            player.writer.flush();
 
-        System.out.println("5 "+player.read.nextLine());//==5
+            System.out.println("6 " + player.read.nextLine()); // о первом ходе
+        }
+        System.out.println("7 " + player.read.nextLine()); // о первом ходе
+        System.out.println("8 " + player.read.nextLine()); // о первом ходе
+        System.out.println("9 " + player.read.nextLine()); // о первом ходе
 
-        int x= player.scan.nextInt();//считывает число
-        player.writer.println(x);
-        player.writer.flush();//отправляет ->6
-
-        System.out.println("6 "+player.read.nextLine());
-        System.out.println("7 "+player.read.nextLine());
-        System.out.println("8 "+player.read.nextLine());
-        System.out.println("9 "+player.read.nextLine());
 
     }
 }
+
