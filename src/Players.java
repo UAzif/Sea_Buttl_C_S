@@ -1,5 +1,3 @@
-
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
@@ -41,11 +39,14 @@ public class Players {
         String name = player.scan.nextLine();
         player.writer.println(name);
         player.writer.flush();
-        System.out.println(player.read.nextLine());//1
-        System.out.println(player.read.nextLine());//2
-        System.out.println(player.read.nextLine());//
-        System.out.println(player.read.nextLine());//
+        System.out.println("1-- " +player.read.nextLine());//1
+        System.out.println("2-- " +player.read.nextLine());//2
+        int x= player.scan.nextInt();
+        player.writer.println(x);
+        player.writer.flush();//3
+        System.out.println("3-- " +player.read.nextLine());//
+        System.out.println("4-- " +player.read.nextLine());//
+        System.out.println("5-- " +player.read.nextLine());//
 
     }
 }
-

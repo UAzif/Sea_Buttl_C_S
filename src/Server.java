@@ -31,7 +31,7 @@ class MyServer implements Runnable {
             Scanner scan = new Scanner(System.in);
             int[] mass = new int[10];
 
-            while (playersList.size() < 2) {
+            while (playersList.size() != 2) {
                 String name = read.nextLine(); //1.считывает переданное имя(name)
                 Players player = new Players(name, input, writer, read, scan, mass);
                 playersList.add(player);
@@ -41,35 +41,40 @@ class MyServer implements Runnable {
                         + name + " ! Вы " + myNumb);//1
                 playersList.get(playersList.size() - 1).writer.flush();
                 Thread.sleep(1000);
-                if (playersList.size() == 2) {
-                    int a = (int) (Math.random() * 2 + 4) - 3;
-                    System.out.println("Ход за " + a);
-                    if (a == 1) {
-                        playersList.get(0).writer.println("Ваш ход");//2
-                        playersList.get(0).writer.flush();//2
-                        playersList.get(1).writer.println("Ход за ним");
-                        playersList.get(1).writer.flush();
-                    } else {
-                        playersList.get(0).writer.println("Ход за ним");//2
-                        playersList.get(0).writer.flush();//2
-                        playersList.get(1).writer.println("Ваш ход");
-                        playersList.get(1).writer.flush();
-                    }
-
-                    Game logic = new Game(playersList.get(0), playersList.get(1));
-                    int x = logic.prosto();
-                    System.out.println(x);
-
-                    playersList.get(0).writer.println(x);//2
-                    playersList.get(0).writer.flush();//2
-                    playersList.get(1).writer.println(x);//2
-                    playersList.get(1).writer.flush();//2
-                    playersList.remove(0);
-                    playersList.remove(0);
-
-
-                }
             }
+            if (playersList.size() == 2) {
+                int a = (int) (Math.random() * 2 + 4) - 3;
+                System.out.println("Ход за " + a);
+                if (a == 1) {
+                    playersList.get(0).writer.println("Ваш ход");//2
+                    playersList.get(0).writer.flush();//2
+                    playersList.get(1).writer.println("Ход за ним");
+                    playersList.get(1).writer.flush();
+                } else {
+                    playersList.get(0).writer.println("Ход за ним");//2
+                    playersList.get(0).writer.flush();//2
+                    playersList.get(1).writer.println("Ваш ход");
+                    playersList.get(1).writer.flush();
+                }
+
+                int z = read.nextInt();//получает от 3
+                Game logic = new Game();
+                boolean x = logic.poPal(z);
+                System.out.println(x);
+
+                playersList.get(0).writer.println(x);//2
+                playersList.get(0).writer.flush();//2
+                playersList.get(1).writer.println(x);//2
+                playersList.get(1).writer.flush();//2
+                playersList.remove(0);
+                playersList.remove(0);
+            }
+
+        } catch (IOException|InterruptedException exception) {
+            exception.printStackTrace();
+        }
+    }
+}
 
 
 //            writer.println("Введите числа");//2 отправляет
@@ -77,11 +82,8 @@ class MyServer implements Runnable {
 //            for (int i = 0; i < 1; i++) {
 //                int x = read.nextInt();
 //                mass[x] = 1;
-//            }
 
 
-        } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-}
+
+
+
