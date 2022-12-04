@@ -32,7 +32,7 @@ class MyServer implements Runnable {
             Scanner read = new Scanner(input.getInputStream());
             PrintWriter writer = new PrintWriter(input.getOutputStream(), true);
             Scanner scan = new Scanner(System.in);
-            int myNumb = playersList.size()+1;
+            int myNumb = playersList.size() + 1;
             String name = read.nextLine(); //1.считывает переданное имя(name)
             writer.println("Введите числа");//2 отправляет
             int[] mass = new int[10];
@@ -46,56 +46,51 @@ class MyServer implements Runnable {
             Player player = new Player(name, input, writer, read, scan, mass);
             playersList.add(player);
 
-            System.out.println("Подключены " + myNumb + " игроков ");
+            System.out.println("Подключены " + playersList.size() + " игроков ");
 
             for (Player value : playersList) {
                 System.out.println(value.name);
             }
 
-            if (playersList.size() == 1) {
-                writer.println(name + " вы зарегистрированы ваш № " + myNumb + " ждем пока");
+            while (playersList.size() == 1) {
+                writer.println(name + " вы зарегистрированы ваш № " + playersList.size() + " ждем пока");
                 writer.flush();
-            } else if (playersList.size() > 1) {
-                writer.println(name + " вы зарегистрированы ваш № " + myNumb);
-                writer.flush();//->3
-                ArrayList<Player> temp = new ArrayList<>();
-                temp.add(playersList.get(0));
-                temp.add(playersList.get(1));
-                playersList.remove(1);
-                playersList.remove(0);
-                temp.get(0).writer.println(temp.get(0).name + "1-- Начинаем игру");
-                temp.get(0).writer.flush();//->4
-                temp.get(1).writer.println(temp.get(1).name + " 1--Начинаем игру");
-                temp.get(1).writer.flush();//->4
-                temp.get(0).writer.println("2--Первый ход за вами. Введите число");
-                temp.get(0).writer.flush();//-5
-                temp.get(1).writer.println("2--Первый ход за ним. Ждем результат ");
-                temp.get(1).writer.flush();//->5
+                Thread.sleep(3000);
+                if (playersList.size() <2) {
+                    writer.println(name + " вы зарегистрированы ваш № " + playersList.size());
+                    writer.flush();//->3
 
-                Game game= new Game();
-                for (int i= 0; i<2;i++) {
-                    int z = temp.get(0).read.nextInt();
-                    System.out.println("Получил " + z + "от " + (myNumb-1)+" игрока");
-                    boolean b = game.poPal(temp, temp.get(myNumb - 1), z);
+                    playersList.get(0).writer.println(playersList.get(0).name + "1-- Начинаем игру");
+                    playersList.get(0).writer.flush();//->4
+                    playersList.get(1).writer.println(playersList.get(1).name + " 1--Начинаем игру");
+                    playersList.get(1).writer.flush();//->4
+                    playersList.get(0).writer.println("2--Первый ход за вами. Введите число");
+                    playersList.get(0).writer.flush();//-5
+                    playersList.get(1).writer.println("2--Первый ход за ним. Ждем результат ");
+                    playersList.get(1).writer.flush();//->5
+                    int z = playersList.get(1).read.nextInt();
+                    System.out.println("Получил " + z + "от " + (myNumb - 1) + " игрока");
+                    Game game = new Game();
+                    boolean b = game.poPal(playersList, playersList.get(myNumb - 1), z);
+                    System.out.println("Передал " + z);
+                    System.out.println("Результат " + b);
+
+
+                    playersList.get(0).writer.println("3--Первый ход сделан");
+                    playersList.get(0).writer.flush();//-5
+                    playersList.get(1).writer.println("3--Первый ход сделан ");
+                    playersList.get(1).writer.flush();//->5
+                    z = playersList.get(1).read.nextInt();
+                    b = game.poPal(playersList, playersList.get(myNumb - 1), z);
                     //   game.poPal(temp, temp.get(myNumb - 1), z);
-                    z=0;
-                    //  System.out.println("Передал " + z);
-                    //   System.out.println("Результат " + b);
-                    temp.get(0).writer.println("3--Первый ход сделан");
-                    temp.get(0).writer.flush();//-5
-                    temp.get(1).writer.println("3--Первый ход сделан ");
-                    temp.get(1).writer.flush();//->5
-                    z=  temp.get(1).read.nextInt();
-                    b = game.poPal(temp, temp.get(myNumb - 1), z);
-                    //   game.poPal(temp, temp.get(myNumb - 1), z);
-                    temp.get(0).writer.println("4--Еще один ход сделан");
-                    temp.get(0).writer.flush();//-5
-                    temp.get(1).writer.println("4---Еще один ход сделан ");
-                    temp.get(1).writer.flush();//->5
+                    playersList.get(0).writer.println("4--Еще один ход сделан");
+                    playersList.get(0).writer.flush();//-5
+                    playersList.get(1).writer.println("4---Еще один ход сделан ");
+                    playersList.get(1).writer.flush();//->5
+
                 }
-
             }
-        } catch (IOException e) {
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
     }

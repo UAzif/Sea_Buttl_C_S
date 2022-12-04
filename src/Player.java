@@ -57,13 +57,14 @@ public class Player {
         System.out.println("3 " + player.read.nextLine());//==3 от сервера о регистрации
         System.out.println("4 " + player.read.nextLine());//==4 от игры
         System.out.println("5 " + player.read.nextLine()); // о первом ходе
-        for (int i = 0; i < 2; i++) {
+
+      //  for (int i = 0; i < 2; i++) {
             int z = player.scan.nextInt();
             player.writer.println(z);
             player.writer.flush();
 
             System.out.println("6 " + player.read.nextLine()); // о первом ходе
-        }
+  //      }
         System.out.println("7 " + player.read.nextLine()); // о первом ходе
         System.out.println("8 " + player.read.nextLine()); // о первом ходе
         System.out.println("9 " + player.read.nextLine()); // о первом ходе

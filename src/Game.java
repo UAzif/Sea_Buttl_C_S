@@ -22,10 +22,10 @@ public class Game {
         //если не попал
         if (!bulCheck(passivPlayer.arr, y)) {
             String resCheck = check(passivPlayer.arr, y);
-            activePlayer.writer.println("Вы " + resCheck + ". Ход переходит другому");
+            activePlayer.writer.println("ОТ ИГРЫ---Вы " + resCheck + ". Ход переходит другому");
             activePlayer.writer.flush();
 
-            passivPlayer.writer.println("Он " + resCheck + ". Ход переходит вам ");
+            passivPlayer.writer.println("ОТ ИГРЫ---Он " + resCheck + ". Ход переходит вам ");
             passivPlayer.writer.flush();
 
             return false;
@@ -33,10 +33,10 @@ public class Game {
         } else {
             String resCheck = check(passivPlayer.arr, y);
 
-            passivPlayer.writer.println("Он " + resCheck + ". Ход остается за ним");
+            passivPlayer.writer.println("ОТ ИГРЫ---Он " + resCheck + ". Ход остается за ним");
             passivPlayer.writer.flush();
 
-            activePlayer.writer.println("Вы " + resCheck + ". Ход остается за вами");
+            activePlayer.writer.println("ОТ ИГРЫ---Вы " + resCheck + ". Ход остается за вами");
             activePlayer.writer.flush();
             return true;
         }
