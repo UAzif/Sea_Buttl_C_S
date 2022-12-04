@@ -55,8 +55,8 @@ class MyServer implements Runnable {
             while (playersList.size() == 1) {
                 writer.println(name + " вы зарегистрированы ваш № " + playersList.size() + " ждем пока");
                 writer.flush();
-                Thread.sleep(3000);
-                if (playersList.size() <2) {
+                Thread.sleep(1000);
+                if (playersList.size() ==2) {
                     writer.println(name + " вы зарегистрированы ваш № " + playersList.size());
                     writer.flush();//->3
 
